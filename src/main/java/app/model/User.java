@@ -5,19 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.lang.String;
 
-import app.Movie;
+import app.model.Movie;
 
 public class User {
 
 	// Initiate some sample data
-	public static final Integer SAMPLE_SIZE = 10;
-	public String username;
+	public static final Integer SAMPLE_SIZE = 300;
+	public String name;
 	public List<User> friendList = new ArrayList<User>();
 	public List<Movie> sampleMovies = new ArrayList<Movie>();
 	public Map<String, Movie> moviesWatchedMap = new HashMap<String, Movie>();
 
-	public void init() {
+	public void seedSampleData() {
 		setFriends();
 		setSampleMovies();
 		setSampleMovieWatched();
@@ -69,10 +70,26 @@ public class User {
 		Random rand = new Random();
 
 		for(int i = 0; i < rand.nextInt(SAMPLE_SIZE); i++) {
-			this.moviesWatchedMap.put(
-				friendList.get(rand.nextInt(friendList.size())), 
-				sampleMovies.get(rand.nextInt(sampleMovies.size()))
-			);
+			Movie watchedMovie = sampleMovies.get(rand.nextInt(sampleMovies.size()));
+			String userWatchedMovieKey = getUserMovieWatchedKey(friendList.get(rand.nextInt(friendList.size())), watchedMovie);
+
+			//System.out.println("SampleMovieWatched: " + userWatchedMovieKey);
+
+			this.moviesWatchedMap.put(userWatchedMovieKey, watchedMovie);
+
+		}
+	}
+
+	public String getUserMovieWatchedKey(User user, Movie movie) {
+		return user.getName() + "~" + movie.getTitle();
+	}
+
+	public String getUserNameFromKey(String key) {
+		try {
+			String[] parts = key.split("~", 2);
+			return parts[0];
+		} catch (Exception ex) {
+			return null;
 		}
 	}
 
@@ -97,8 +114,14 @@ public class User {
 	public List<Movie> getMoviesWatched() {
 		List<Movie> movieList = new ArrayList<Movie>();
 
-		for(int i = 0; i < moviesWatchedMap.size(); i++) {
-			movieList.add()
+		for (Map.Entry<String, Movie> entry : moviesWatchedMap.entrySet()) {
+			String key = entry.getKey();
+			String watchedUserName = getUserNameFromKey(key);
+
+			Movie movie = entry.getValue();
+			if(name.equals(watchedUserName)) {
+				movieList.add(movie);
+			}
 		}
 
 		return movieList;
