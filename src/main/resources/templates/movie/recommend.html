@@ -6,5 +6,12 @@
 </head>
 <body>
     <p th:text="'Hello, ' + ${name} + '!'" />
+
+    <div>
+    	<strong>Recommended Movies</strong>
+    </div>
+    <div>
+		<p th:each="recommendedMovie : ${recommendedMovies}" th:text="${recommendedMovie}"><p/>
+    </div>
 </body>
 </html>
