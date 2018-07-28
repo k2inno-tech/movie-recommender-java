@@ -1,7 +1,10 @@
 package app.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,30 +19,24 @@ public class SiteController {
 
     @GetMapping("/recommend-movie")
     public String recommendMovieByFriends(
-    	@RequestParam(name="name", required=false, defaultValue="World") 
-    	String name, 
+    	@RequestParam(name="name", required=false, defaultValue="World") String name, 
+    	@RequestParam(name="cutoff", required=false, defaultValue="10") String cutoff,
     	Model model) {
 
     	MovieRecommender movieRecommender = new MovieRecommender();
 
     	User user = new User("David");
     	user.seedSampleData();
-    	List<String> recommendedMovies = movieRecommender.recommendMovies(user, 3);
+    	user.setUserFriends();
 
-    	/*
-    	for(Movie movie : recommendedMovies) {
-    		System.out.println("Recommended movie: " + movie.getTitle());
-    	}
+    	List<String> recommendedMovies = movieRecommender.recommendMovies(user, Integer.valueOf(cutoff));
 
-    	for(User friend : user.getFriends()) {
-    		System.out.println("Friends: " + friend.getName());	
-    		for(Movie movie : friend.getMoviesWatched()) {
-    			System.out.println("Watched: " + movie.getTitle());	
-    		}
-    	}
-    	*/
+    	List<User> friends = user.getFriends();
+    	List<Movie> sampleMovies = user.getSampleMovies();
 
-        model.addAttribute("name", name);
+        model.addAttribute("name", user.getName());
+        model.addAttribute("friends", friends);
+        model.addAttribute("sampleMovies", sampleMovies);
         model.addAttribute("recommendedMovies", recommendedMovies);
 
         return "movie/recommend";

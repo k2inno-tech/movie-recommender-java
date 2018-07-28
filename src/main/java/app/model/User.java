@@ -15,17 +15,16 @@ public class User {
 	public static final Integer SAMPLE_SIZE = 300;
 	public String name;
 	public List<User> friendList = new ArrayList<User>();
-	public List<Movie> sampleMovies = new ArrayList<Movie>();
 	public Map<String, Movie> moviesWatchedMap = new HashMap<String, Movie>();
 
 	public void seedSampleData() {
-		setFriends();
-		setSampleMovies();
+		// Seed sample data
+		setSampleFriends();
 		setSampleMovieWatched();
 	}
 
 	// Set some dummy data
-	public void setFriends() {
+	public void setSampleFriends() {
 
 		this.friendList.add(new User("Abu"));
 		this.friendList.add(new User("Ahmad"));
@@ -42,32 +41,16 @@ public class User {
 
 	};
 
-	// Set some dummy data
-	public void setSampleMovies() {
-		this.sampleMovies.add(new Movie("Iron Man"));
-		this.sampleMovies.add(new Movie("The Incredible Hulk"));
-		this.sampleMovies.add(new Movie("Iron Man 2"));
-		this.sampleMovies.add(new Movie("Thor"));
-		this.sampleMovies.add(new Movie("Captain America: The First Avenger"));
-		this.sampleMovies.add(new Movie("Marvel\'s The Avengers"));
-		this.sampleMovies.add(new Movie("Iron Man 3"));
-		this.sampleMovies.add(new Movie("Thor: The Dark World"));
-		this.sampleMovies.add(new Movie("Captain America: The Winter Soldier"));
-		this.sampleMovies.add(new Movie("Guardians of the Galaxy"));
-		this.sampleMovies.add(new Movie("Avengers: Age of Ultron"));
-		this.sampleMovies.add(new Movie("Ant-Man"));
-		this.sampleMovies.add(new Movie("Captain America: Civil War"));
-		this.sampleMovies.add(new Movie("Doctor Strange"));
-		this.sampleMovies.add(new Movie("Guardians of the Galaxy Vol. 2"));
-		this.sampleMovies.add(new Movie("Spider-Man: Homecoming"));
-		this.sampleMovies.add(new Movie("Thor: Ragnarok"));
-		this.sampleMovies.add(new Movie("Black Panther"));
-		this.sampleMovies.add(new Movie("Avengers: Infinity War"));
-		this.sampleMovies.add(new Movie("Ant-Man and the Wasp"));
-	};
+	public List<Movie> getSampleMovies() {
+		Movie movie = new Movie("sample");
+		movie.init();
+		return movie.getSampleMovies();
+	}
 
 	public void setSampleMovieWatched() {
 		Random rand = new Random();
+
+		List<Movie> sampleMovies = getSampleMovies();
 
 		for(int i = 0; i < rand.nextInt(SAMPLE_SIZE); i++) {
 			Movie watchedMovie = sampleMovies.get(rand.nextInt(sampleMovies.size()));
@@ -77,6 +60,18 @@ public class User {
 
 			this.moviesWatchedMap.put(userWatchedMovieKey, watchedMovie);
 
+		}
+	}
+
+	public void setUserFriends() {
+		List<User> friends = this.getFriends();
+		for(User friend : friends) {
+			friend.seedSampleData();
+
+			List<User> friend_friends = friend.getFriends();
+			for(User friend_friend : friend_friends) {
+				friend_friend.seedSampleData();
+			}
 		}
 	}
 
