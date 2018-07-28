@@ -77,25 +77,23 @@ public class MovieRecommender {
 		return movieWatchedCount;
 	}
 
-    private static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap) {
+	private static Map<String, Integer> sortByValue(Map<String, Integer> unsortMap) {
 
-        List<Map.Entry<String, Integer>> list =
-                new LinkedList<Map.Entry<String, Integer>>(unsortMap.entrySet());
+		List<Map.Entry<String, Integer>> list =
+		new LinkedList<Map.Entry<String, Integer>>(unsortMap.entrySet());
 
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-            public int compare(Map.Entry<String, Integer> o1,
-                               Map.Entry<String, Integer> o2) {
-                return (o1.getValue()).compareTo(o2.getValue());
-            }
-        });
+		Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+			public int compare(Map.Entry<String, Integer> o1,
+			Map.Entry<String, Integer> o2) {
+				return (o1.getValue()).compareTo(o2.getValue());
+			}
+		});
 
-        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
-        for (Map.Entry<String, Integer> entry : list) {
-            sortedMap.put(entry.getKey(), entry.getValue());
-        }
+		Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+		for (Map.Entry<String, Integer> entry : list) {
+			sortedMap.put(entry.getKey(), entry.getValue());
+		}
 
-        return sortedMap;
-    }
-
-
+		return sortedMap;
+	}
 }
