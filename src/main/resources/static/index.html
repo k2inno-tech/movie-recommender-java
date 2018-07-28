@@ -26,7 +26,7 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" th:href="./">Home <span class="sr-only">(current)</span></a>
           </li>
         </ul>
       </div>
@@ -37,7 +37,18 @@
       <div class="starter-template">
         <h1>Movie Recommender</h1>
         <p class="lead">Every refresh re-count the recommendation.</p>
+
+        <div class="row">
+        	<div class="col-xs-12 col-md-6 offset-md-3">
+        		<a class="btn btn-primary text-white" href="./recommend-movie">
+        			Recommend Movies via social friends &gt;
+        		</a>
+        	</div>
+        </div>
+
       </div>
+
+
 
     </main><!-- /.container -->
 
