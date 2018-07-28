@@ -1,17 +1,73 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Movie Recommender</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-    <p th:text="'Hello, ' + ${name} + '!'" />
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A simple site to recommend movies watched by friends.">
+    <meta name="author" content="Loke Kok Keong <kkloke86@k2inno.com">
 
-    <div>
-    	<strong>Recommended Movies</strong>
-    </div>
-    <div>
-		<p th:each="recommendedMovie : ${recommendedMovies}" th:text="${recommendedMovie}"><p/>
-    </div>
-</body>
+    <title>Movie Recommender | Home</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./css/starter-template.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+	<nav th:replace="partials/navbar :: navbar">...</nav>
+
+    <main role="main" class="container">
+
+      <div class="starter-template">
+        <h1>Movie Recommender</h1>
+        <p class="lead">Every refresh re-count the recommendation.</p>
+
+        <hr />
+
+		<div class="card">
+			<div class="card-body">
+		    	<p class="text-left" th:text="'Hello, ' + ${name} + '!'" />
+
+			    <div class="row">
+			    	<div class="col">
+			    		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#md-friend-list">
+		  					Friends
+						</button>
+			    		<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#md-sample-movie-list">
+		  					Movies
+						</button>
+			    	</div>
+			    </div>
+			</div>
+	    </div>
+
+	    <div class="row">
+	    	<div class="col">
+				<ul class="list-group">
+					<li class="list-group-item list-group-item-primary">
+						<strong>Recommended Movies</strong>
+					</li>
+					<li class="list-group-item text-left" th:each="recommendedMovie : ${recommendedMovies}" th:text="${recommendedMovie}"></li>
+				</ul>
+			</div>
+	    </div>
+
+      </div>
+
+    </main><!-- /.container -->
+
+	<div th:replace="partials/modal-friends :: modal-friends"></div>
+	<div th:replace="partials/modal-movies :: modal-movies"></div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="./js/jquery-slim.min.js"><\/script>')</script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+  </body>
 </html>
